@@ -2,31 +2,47 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* GRID LAYOUT (biar posisi sama kayak asli) */
+/* ===== GRID LAYOUT ===== */
 .wrapper {
   display: grid;
   grid-template-columns: 340px 340px;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
   gap: 20px;
 }
 
-/* posisi panel */
+/* ===== POSISI PANEL ===== */
+
+/* panel 1 */
 .panel:nth-child(1) {
   grid-column: 1;
   grid-row: 1;
 }
 
+/* panel 2 */
 .panel:nth-child(2) {
   grid-column: 2;
   grid-row: 1;
 }
 
+/* panel 3 */
 .panel:nth-child(3) {
   grid-column: 1;
   grid-row: 2;
 }
 
-/* panel */
+/* panel 4 */
+.panel:nth-child(4) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* panel 5 (progress) */
+.panel:nth-child(5) {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+}
+
+/* ===== PANEL STYLE ===== */
 .panel {
   display: flex;
   flex-direction: row;
@@ -36,11 +52,16 @@ body {
   padding: 5px;
   box-sizing: border-box;
   overflow: hidden;
-
   min-width: 0;
 }
 
-/* kiri (params) */
+/* panel 5 beda layout */
+.panel:nth-child(5) {
+  height: 120px;
+  flex-direction: column;
+}
+
+/* ===== TEXTAREA ===== */
 textarea {
   flex: 0 0 80px;
   height: 100%;
@@ -49,7 +70,7 @@ textarea {
   resize: none;
 }
 
-/* tombol */
+/* ===== BUTTONS ===== */
 .buttons {
   display: flex;
   flex-direction: column;
@@ -62,7 +83,7 @@ textarea {
   font-size: 11px;
 }
 
-/* kanan (grid / canvas) */
+/* ===== CANVAS & GRID ===== */
 canvas, #grid {
   flex: 1;
   min-width: 0;
@@ -70,17 +91,22 @@ canvas, #grid {
   border: 1px solid #aaa;
 }
 
-.panel:nth-child(4) {
-  grid-column: 2;
-  grid-row: 2;
+/* penting biar canvas nggak bug */
+canvas {
+  display: block;
 }
 
-.panel:nth-child(5) {
-  grid-column: 1;
-  grid-row: 3;
+/* ===== PANEL 5 (PROGRESS BAR) ===== */
+.panel:nth-child(5) .buttons {
+  flex-direction: column;
+  width: 100%;
 }
 
-progress {
+.panel:nth-child(5) button {
+  width: 80px;
+}
+
+.panel:nth-child(5) progress {
   width: 100%;
   height: 10px;
 }
