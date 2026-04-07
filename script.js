@@ -2,6 +2,12 @@ let h = [], w, E, D, O, y;
 let k = [], W;
 let b, v, H, S, U, N, R, P;
 
+// panel 4
+let agents = [];
+
+// progress
+let intervals = {};
+
 const colors = ["#522","#622","#722","#822","#922","#a22","#b22","#c22","#d22","#e22","#f22","#f44","#f66","#f88","#faa","#fcc"];
 
 function enable(id, state) {
@@ -18,7 +24,7 @@ function parse(text, key, type="string") {
   let lines = text.split("\n");
   for (let l of lines) {
     if (l.startsWith(key)) {
-      let val = l.split(" ")[1];
+      let val = l.split(/\s+/)[1];
       if (type==="int") return parseInt(val);
       if (type==="float") return parseFloat(val);
       return val;
@@ -41,8 +47,14 @@ function draw(canvasId, grid) {
 
   for (let i=0;i<rows;i++){
     for (let j=0;j<cols;j++){
-      ctx.fillStyle = k[grid[i][j]];
+      let val = grid[i][j];
+      ctx.fillStyle = k[val] || "#000";
       ctx.fillRect(j*cw, i*ch, cw, ch);
+
+      // grid line (improvement dari dosen)
+      ctx.strokeStyle = "#888";
+      ctx.lineWidth = 0.2;
+      ctx.strokeRect(j*cw, i*ch, cw, ch);
     }
   }
 }
@@ -58,9 +70,69 @@ function highlight(canvasId, x, y, color) {
   ctx.fillRect(x*cw, y*ch, cw, ch);
 }
 
+/* =========================
+   PANEL 4 (GRID PROCESSOR)
+========================= */
+
+function getNeighbors(grid, x, y) {
+  let res = [];
+  for (let dx=-1; dx<=1; dx++){
+    for (let dy=-1; dy<=1; dy++){
+      if (dx===0 && dy===0) continue;
+      res.push(grid[y+dy]?.[x+dx] ?? 0);
+    }
+  }
+  return res;
+}
+
+function processGrid(grid){
+  let out = structuredClone(grid);
+
+  for (let i=1;i<grid.length-1;i++){
+    for (let j=1;j<grid[0].length-1;j++){
+      let n = getNeighbors(grid,j,i);
+      let sum = n.reduce((a,b)=>a+b,0);
+
+      if (sum < 8 || sum > 9){
+        out[i][j] = 9;
+      }
+    }
+  }
+  return out;
+}
+
+/* =========================
+   PANEL 5 (PROGRESS)
+========================= */
+
+function toggleProgress(btnId, barId){
+  let btn = document.getElementById(btnId);
+  let bar = document.getElementById(barId);
+
+  if (intervals[btnId]){
+    clearInterval(intervals[btnId]);
+    intervals[btnId] = null;
+    btn.textContent = btnId.replace("prog-","");
+  } else {
+    btn.textContent = "stop";
+    intervals[btnId] = setInterval(()=>{
+      bar.value += 1;
+      if (bar.value >= 100){
+        clearInterval(intervals[btnId]);
+        btn.disabled = true;
+      }
+    },50);
+  }
+}
+
+/* =========================
+   EVENT HANDLER
+========================= */
+
 document.addEventListener("click", (e) => {
   let id = e.target.id;
 
+  /* ===== PANEL 1 ===== */
   if (id === "wipe-1") {
     params1.value = "";
     grid.value = "";
@@ -118,6 +190,7 @@ SEPC ;`;
     grid.value = text;
   }
 
+  /* ===== PANEL 2 ===== */
   if (id === "wipe-2") {
     params2.value="";
     clearCanvas("map-2");
@@ -150,6 +223,7 @@ SEPC ;`;
     draw("map-2", h);
   }
 
+  /* ===== PANEL 3 ===== */
   if (id === "wipe-3") {
     params3.value="";
     clearCanvas("map-3");
@@ -190,39 +264,40 @@ YMAX ${w}`;
     highlight("map-3", R, P, "#88f");
   }
 
+  /* ===== PANEL 4 ===== */
+  if (id === "wipe-4") {
+    params4.value="";
+    clearCanvas("map-4");
+  }
+
+  if (id === "data-4") {
+    params4.value = grid.value;
+    enable("read-4", true);
+  }
+
+  if (id === "read-4") {
+    let lines = params4.value.split("\n");
+    agents = lines.map(r => r.split(";").map(Number));
+    enable("exec-4", true);
+  }
+
+  if (id === "exec-4") {
+    agents = processGrid(agents);
+    draw("map-4", agents);
+  }
+
+  /* ===== PANEL 5 ===== */
+  if (id === "prog-1") toggleProgress("prog-1","bar-1");
+  if (id === "prog-2") toggleProgress("prog-2","bar-2");
+  if (id === "prog-3") toggleProgress("prog-3","bar-3");
+  if (id === "prog-4") toggleProgress("prog-4","bar-4");
+  if (id === "prog-5") toggleProgress("prog-5","bar-5");
+
 });
 
-// refs
+/* ===== REFS ===== */
 const params1 = document.getElementById("params-1");
 const params2 = document.getElementById("params-2");
 const params3 = document.getElementById("params-3");
+const params4 = document.getElementById("params-4");
 const grid = document.getElementById("grid");
-
-let agents = [];
-
-function getNeighbors(grid, x, y) {
-  let res = [];
-  for (let dx=-1; dx<=1; dx++){
-    for (let dy=-1; dy<=1; dy++){
-      if (dx===0 && dy===0) continue;
-      res.push(grid[y+dy]?.[x+dx] ?? 0);
-    }
-  }
-  return res;
-}
-
-function processGrid(grid){
-  let out = structuredClone(grid);
-
-  for (let i=1;i<grid.length-1;i++){
-    for (let j=1;j<grid[0].length-1;j++){
-      let n = getNeighbors(grid,j,i);
-      let sum = n.reduce((a,b)=>a+b,0);
-
-      if (sum < 8 || sum > 9){
-        out[i][j] = 9;
-      }
-    }
-  }
-  return out;
-}
