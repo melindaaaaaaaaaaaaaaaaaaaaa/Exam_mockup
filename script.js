@@ -197,3 +197,32 @@ const params1 = document.getElementById("params-1");
 const params2 = document.getElementById("params-2");
 const params3 = document.getElementById("params-3");
 const grid = document.getElementById("grid");
+
+let agents = [];
+
+function getNeighbors(grid, x, y) {
+  let res = [];
+  for (let dx=-1; dx<=1; dx++){
+    for (let dy=-1; dy<=1; dy++){
+      if (dx===0 && dy===0) continue;
+      res.push(grid[y+dy]?.[x+dx] ?? 0);
+    }
+  }
+  return res;
+}
+
+function processGrid(grid){
+  let out = structuredClone(grid);
+
+  for (let i=1;i<grid.length-1;i++){
+    for (let j=1;j<grid[0].length-1;j++){
+      let n = getNeighbors(grid,j,i);
+      let sum = n.reduce((a,b)=>a+b,0);
+
+      if (sum < 8 || sum > 9){
+        out[i][j] = 9;
+      }
+    }
+  }
+  return out;
+}
