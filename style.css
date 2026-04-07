@@ -2,47 +2,30 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* ===== GRID LAYOUT ===== */
+/* ===== TOP GRID (PANEL 1–3) ===== */
 .wrapper {
   display: grid;
   grid-template-columns: 340px 340px;
-  grid-template-rows: auto auto auto;
   gap: 20px;
 }
 
-/* ===== POSISI PANEL ===== */
-
-/* panel 1 */
+/* posisi panel atas */
 .panel:nth-child(1) {
   grid-column: 1;
   grid-row: 1;
 }
 
-/* panel 2 */
 .panel:nth-child(2) {
   grid-column: 2;
   grid-row: 1;
 }
 
-/* panel 3 */
 .panel:nth-child(3) {
   grid-column: 1;
   grid-row: 2;
 }
 
-/* panel 4 */
-.panel:nth-child(4) {
-  grid-column: 2;
-  grid-row: 2;
-}
-
-/* panel 5 (progress) */
-.panel:nth-child(5) {
-  grid-column: 1 / span 2;
-  grid-row: 3;
-}
-
-/* ===== PANEL STYLE ===== */
+/* ===== PANEL BASE ===== */
 .panel {
   display: flex;
   flex-direction: row;
@@ -55,12 +38,6 @@ body {
   min-width: 0;
 }
 
-/* panel 5 beda layout */
-.panel:nth-child(5) {
-  height: 120px;
-  flex-direction: column;
-}
-
 /* ===== TEXTAREA ===== */
 textarea {
   flex: 0 0 80px;
@@ -70,7 +47,7 @@ textarea {
   resize: none;
 }
 
-/* ===== BUTTONS ===== */
+/* ===== BUTTONS (DEFAULT - VERTICAL) ===== */
 .buttons {
   display: flex;
   flex-direction: column;
@@ -83,7 +60,7 @@ textarea {
   font-size: 11px;
 }
 
-/* ===== CANVAS & GRID ===== */
+/* ===== OUTPUT AREA ===== */
 canvas, #grid {
   flex: 1;
   min-width: 0;
@@ -91,22 +68,87 @@ canvas, #grid {
   border: 1px solid #aaa;
 }
 
-/* penting biar canvas nggak bug */
+/* penting supaya canvas tidak bug */
 canvas {
   display: block;
 }
 
-/* ===== PANEL 5 (PROGRESS BAR) ===== */
-.panel:nth-child(5) .buttons {
+/* ===================================================== */
+/* ===== BOTTOM AREA (YANG KAMU TANYAIN) ===== */
+/* ===================================================== */
+
+.bottom-wrapper {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* ===== PANEL BESAR (KIRI) ===== */
+.big-panel {
+  width: 520px;
+  height: 300px;
   flex-direction: column;
-  width: 100%;
 }
 
-.panel:nth-child(5) button {
-  width: 80px;
+/* textarea atas */
+.top-area {
+  display: flex;
+  gap: 5px;
+  height: 100px;
 }
 
-.panel:nth-child(5) progress {
-  width: 100%;
+#params-input {
+  flex: 1;
+}
+
+#agents-input {
+  flex: 2;
+}
+
+/* tombol horizontal */
+.buttons.horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  margin: 5px 0;
+}
+
+.buttons.horizontal button {
+  width: auto;
+  padding: 3px 8px;
+}
+
+/* canvas bawah */
+.big-panel canvas {
+  flex: 1;
+  margin-top: 5px;
+  border: 1px solid #aaa;
+}
+
+/* ===== PANEL PROGRESS (KANAN) ===== */
+.progress-panel {
+  width: 300px;
+  height: 180px;
+  flex-direction: column;
+  padding: 10px;
+}
+
+/* tiap baris */
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+/* tombol kiri */
+.progress-row button {
+  width: 60px;
+  font-size: 11px;
+}
+
+/* progress bar */
+.progress-row progress {
+  flex: 1;
   height: 10px;
 }
