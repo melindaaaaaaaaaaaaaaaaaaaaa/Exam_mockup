@@ -9,6 +9,9 @@
 
 <h2>Chaining Panels Demo</h2>
 
+<!-- ===================== -->
+<!-- PANEL ATAS (GRID) -->
+<!-- ===================== -->
 <div class="wrapper">
 
   <!-- PANEL 1 -->
@@ -53,14 +56,19 @@
     <canvas id="map-3"></canvas>
   </div>
 
-  <div class="bottom-wrapper">
+</div>
 
-  <!-- KIRI -->
+<!-- ===================== -->
+<!-- PANEL BAWAH (INI YANG BENAR) -->
+<!-- ===================== -->
+<div class="bottom-wrapper">
+
+  <!-- PANEL BESAR (KIRI) -->
   <div class="panel big-panel">
 
     <div class="top-area">
-      <textarea id="params-input"></textarea>
-      <textarea id="agents-input"></textarea>
+      <textarea id="params-input" placeholder="params-input"></textarea>
+      <textarea id="agents-input" placeholder="agents-input"></textarea>
     </div>
 
     <div class="buttons horizontal">
@@ -76,7 +84,7 @@
 
   </div>
 
-  <!-- KANAN -->
+  <!-- PANEL PROGRESS (KANAN) -->
   <div class="panel progress-panel">
 
     <div class="progress-row">
@@ -86,27 +94,25 @@
 
     <div class="progress-row">
       <button id="prog-2">filter</button>
-      <progress id="bar-2"></progress>
+      <progress id="bar-2" value="0" max="100"></progress>
     </div>
 
     <div class="progress-row">
       <button id="prog-3">format</button>
-      <progress id="bar-3"></progress>
+      <progress id="bar-3" value="0" max="100"></progress>
     </div>
 
     <div class="progress-row">
       <button id="prog-4">sort</button>
-      <progress id="bar-4"></progress>
+      <progress id="bar-4" value="0" max="100"></progress>
     </div>
 
     <div class="progress-row">
       <button id="prog-5">erase</button>
-      <progress id="bar-5"></progress>
+      <progress id="bar-5" value="0" max="100"></progress>
     </div>
 
   </div>
-
-</div>
 
 </div>
 
