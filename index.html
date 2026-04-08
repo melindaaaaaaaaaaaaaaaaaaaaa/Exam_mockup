@@ -9,73 +9,60 @@
 
 <h2>Chaining Panels Demo</h2>
 
-<!-- ===================== -->
-<!-- PANEL ATAS (GRID) -->
-<!-- ===================== -->
+<!-- ===== PANEL ATAS ===== -->
 <div class="wrapper">
 
-  <!-- PANEL 1 -->
   <div class="panel">
     <textarea id="params-1"></textarea>
-
     <div class="buttons">
       <button id="wipe-1">wipe-1</button>
       <button id="data-1">data-1</button>
       <button id="read-1" disabled>read-1</button>
       <button id="exec-1" disabled>exec-1</button>
     </div>
-
     <textarea id="grid"></textarea>
   </div>
 
-  <!-- PANEL 2 -->
   <div class="panel">
     <textarea id="params-2"></textarea>
-
     <div class="buttons">
       <button id="wipe-2">wipe-2</button>
       <button id="data-2" disabled>data-2</button>
       <button id="read-2" disabled>read-2</button>
       <button id="exec-2" disabled>exec-2</button>
     </div>
-
     <canvas id="map-2"></canvas>
   </div>
 
-  <!-- PANEL 3 -->
   <div class="panel">
     <textarea id="params-3"></textarea>
-
     <div class="buttons">
       <button id="wipe-3">wipe-3</button>
       <button id="data-3" disabled>data-3</button>
       <button id="read-3" disabled>read-3</button>
       <button id="exec-3" disabled>exec-3</button>
     </div>
-
     <canvas id="map-3"></canvas>
   </div>
 
 </div>
 
-<!-- ===================== -->
-<!-- PANEL BAWAH (INI YANG BENAR) -->
-<!-- ===================== -->
+<!-- ===== PANEL BAWAH ===== -->
 <div class="bottom-wrapper">
 
-  <!-- PANEL BESAR (KIRI) -->
+  <!-- KIRI -->
   <div class="panel big-panel">
 
     <div class="top-area">
-      <textarea id="params-input" placeholder="params-input"></textarea>
-      <textarea id="agents-input" placeholder="agents-input"></textarea>
+      <textarea id="params-input"></textarea>
+      <textarea id="agents-input"></textarea>
     </div>
 
     <div class="buttons horizontal">
       <button id="wipe">wipe</button>
       <button id="data">data</button>
-      <button id="read">read</button>
-      <button id="exec">exec</button>
+      <button id="read" disabled>read</button>
+      <button id="exec" disabled>exec</button>
       <button id="none">none</button>
       <button id="info">info</button>
     </div>
@@ -84,33 +71,14 @@
 
   </div>
 
-  <!-- PANEL PROGRESS (KANAN) -->
+  <!-- KANAN -->
   <div class="panel progress-panel">
 
-    <div class="progress-row">
-      <button id="prog-1">scan</button>
-      <progress id="bar-1" value="0" max="100"></progress>
-    </div>
-
-    <div class="progress-row">
-      <button id="prog-2">filter</button>
-      <progress id="bar-2" value="0" max="100"></progress>
-    </div>
-
-    <div class="progress-row">
-      <button id="prog-3">format</button>
-      <progress id="bar-3" value="0" max="100"></progress>
-    </div>
-
-    <div class="progress-row">
-      <button id="prog-4">sort</button>
-      <progress id="bar-4" value="0" max="100"></progress>
-    </div>
-
-    <div class="progress-row">
-      <button id="prog-5">erase</button>
-      <progress id="bar-5" value="0" max="100"></progress>
-    </div>
+    <div class="progress-row"><button id="prog-1">scan</button><progress id="bar-1" value="0" max="100"></progress></div>
+    <div class="progress-row"><button id="prog-2">filter</button><progress id="bar-2" value="0" max="100"></progress></div>
+    <div class="progress-row"><button id="prog-3">format</button><progress id="bar-3" value="0" max="100"></progress></div>
+    <div class="progress-row"><button id="prog-4">sort</button><progress id="bar-4" value="0" max="100"></progress></div>
+    <div class="progress-row"><button id="prog-5">erase</button><progress id="bar-5" value="0" max="100"></progress></div>
 
   </div>
 
