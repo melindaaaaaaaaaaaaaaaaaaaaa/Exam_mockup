@@ -1,6 +1,7 @@
-/* ===== PANEL BAWAH ===== */
+/* ===== PANEL BAWAH ONLY ===== */
 
-let agents = [], old = [], intervals = {}, running = {}, k = [];
+let k2 = [], agents = [], old = [];
+let intervals = {}, running = {};
 
 function drawBottom(grid){
   let c = document.getElementById("map-4");
@@ -16,7 +17,7 @@ function drawBottom(grid){
     for(let j=0;j<w;j++){
       let v = grid[i][j];
       if(v>0){
-        ctx.fillStyle = k[v] || "#000";
+        ctx.fillStyle = k2[v] || "#000";
         ctx.fillRect(j*cw,i*ch,cw,ch);
       }
       ctx.strokeRect(j*cw,i*ch,cw,ch);
@@ -58,8 +59,8 @@ function step(g){
   return o;
 }
 
-/* ===== TAMBAH KE EVENT EXISTING ===== */
-document.addEventListener("click", (e) => {
+/* ===== EVENT TAMBAHAN (AMAN) ===== */
+document.addEventListener("click", (e)=>{
   let id = e.target.id;
 
   if(id==="wipe"){
@@ -92,7 +93,7 @@ COL9 #faa`;
   }
 
   if(id==="read"){
-    k = parsePalette(paramsInput.value);
+    k2 = parsePalette(paramsInput.value);
     agents = parseAgents(agentsInput.value);
     old = structuredClone(agents);
     drawBottom(agents);
@@ -131,6 +132,7 @@ COL9 #faa`;
           bar.value=100;
           clearInterval(intervals[b]);
           btn.disabled=true;
+          btn.textContent=label;
         }
       },50);
     }
@@ -141,7 +143,6 @@ COL9 #faa`;
   if(id==="prog-3") toggle("prog-3","bar-3","format");
   if(id==="prog-4") toggle("prog-4","bar-4","sort");
   if(id==="prog-5") toggle("prog-5","bar-5","erase");
-
 });
 
 const paramsInput = document.getElementById("params-input");
