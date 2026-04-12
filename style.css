@@ -38,9 +38,10 @@ width: 65px;
 }
 
 .buttons button {
-width: 100%;
-font-size: 11px;
-padding: 2px;
+  min-width: 65px;
+  font-size: 11px;
+  padding: 2px 4px;
+  white-space: nowrap;
 }
 
 /* ===== OUTPUT (GRID / CANVAS) ===== */
@@ -97,11 +98,16 @@ width: 120px;
 flex: 1;
 }
 
-/* BUTTON (VERTIKAL KIRI, KAYAK DOSEN) */
+/* BUTTON */
 .buttons.horizontal {
-display: flex;
-flex-direction: column;
-width: 80px;
+  display: flex;
+  flex-direction: row;  
+  gap: 6px;
+  flex-wrap: wrap;    
+}
+
+.buttons.horizontal button {
+  width: 60px;
 }
 
 .buttons.horizontal button {
