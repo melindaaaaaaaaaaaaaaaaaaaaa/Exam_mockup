@@ -72,25 +72,22 @@ canvas, #grid {
   flex:1;
 }
 
-/* ===== PROGRESS PANEL (FIX FINAL) ===== */
+/* ===== PROGRESS PANEL (FINAL CLEAN) ===== */
 .progress-panel {
   width: 260px;
   border: 1px solid #000;
   background: #eee;
+
   display: flex;
   flex-direction: column;
+  padding: 6px;
+  gap: 4px;
 }
 
 .progress-row {
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 3px 5px;
-  border-top: 1px solid #aaa;
-}
-
-.progress-row:first-child {
-  border-top: none;
 }
 
 .progress-row button {
