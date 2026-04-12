@@ -281,14 +281,19 @@ COL9 #faa`;
 1;1;0;0;0;0;0;0;0;0
 1;1;1;0;0;0;0;0;0;0
 1;1;1;1;0;0;0;0;0;0`;
-};
 
+  // aktifkan read
   document.getElementById("read").disabled = false;
 };
+
+document.getElementById("read").onclick = () => {
   k2 = parsePalette(paramsInput.value);
   agents = parseAgents(agentsInput.value);
   old = structuredClone(agents);
   drawBottom(agents);
+
+  // aktifkan exec
+  document.getElementById("exec").disabled = false;
 };
 
 document.getElementById("exec").onclick = () => {
