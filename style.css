@@ -2,10 +2,10 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* ===== PANEL ATAS ===== */
+/* ===== PANEL ATAS (FIX POSISI) ===== */
 .wrapper {
-  display: grid;
-  grid-template-columns: 340px 340px;
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
@@ -15,14 +15,17 @@ body {
   height: 180px;
   border: 1px solid #ccc;
   padding: 5px;
+  box-sizing: border-box;
 }
 
+/* TEXTAREA */
 textarea {
   flex: 0 0 80px;
   font-size: 10px;
   font-family: monospace;
 }
 
+/* BUTTON PANEL */
 .buttons {
   display: flex;
   flex-direction: column;
@@ -35,6 +38,7 @@ textarea {
   white-space: nowrap;
 }
 
+/* CANVAS */
 canvas, #grid {
   flex: 1;
   border: 1px solid #aaa;
@@ -43,10 +47,12 @@ canvas, #grid {
 /* ===== PANEL BAWAH ===== */
 .bottom-wrapper {
   display: flex;
-  gap: 10px;
+  align-items: flex-start;
+  gap: 20px;
   margin-top: 20px;
 }
 
+/* PANEL INPUT */
 .big-panel {
   width: 420px;
   height: 260px;
@@ -59,45 +65,47 @@ canvas, #grid {
   height: 90px;
 }
 
-#params-input { flex:1; }
-#agents-input { flex:2; }
+#params-input { flex: 1; }
+#agents-input { flex: 2; }
 
 .buttons.horizontal {
-  flex-direction: row;
+  display: flex;
   gap: 5px;
-  margin: 4px 0;
+  margin: 5px 0;
 }
 
 .big-panel canvas {
-  flex:1;
+  flex: 1;
 }
 
-/* ===== PROGRESS PANEL (FINAL CLEAN) ===== */
+/* ===== PROGRESS PANEL (KOTAK LUAR SAJA) ===== */
 .progress-panel {
   width: 260px;
+  padding: 10px;
   border: 1px solid #000;
-  background: #eee;
-
+  background: transparent; /* <-- sesuai request kamu */
   display: flex;
   flex-direction: column;
-  padding: 6px;
-  gap: 4px;
+  gap: 8px;
 }
 
+/* ROW */
 .progress-row {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
 }
 
+/* BUTTON */
 .progress-row button {
   width: 55px;
-  height: 20px;
+  height: 22px;
   font-size: 12px;
-  border: 1px solid #888;
-  background: #ddd;
+  border: 1px solid #999;
+  background: #eee;
 }
 
+/* BAR */
 .progress-row progress {
   flex: 1;
   height: 6px;
