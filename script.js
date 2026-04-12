@@ -283,7 +283,8 @@ COL9 #faa`;
 1;1;1;1;0;0;0;0;0;0`;
 };
 
-document.getElementById("read").onclick = () => {
+  document.getElementById("read").disabled = false;
+};
   k2 = parsePalette(paramsInput.value);
   agents = parseAgents(agentsInput.value);
   old = structuredClone(agents);
