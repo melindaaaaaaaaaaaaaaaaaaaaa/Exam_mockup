@@ -1,5 +1,7 @@
 let k=[], agents=[], old=[];
+let intervals={}, running={};
 
+/* ===== DRAW ===== */
 function draw(grid){
   let c=document.getElementById("map-4");
   let ctx=c.getContext("2d");
@@ -17,11 +19,13 @@ function draw(grid){
         ctx.fillStyle=k[v]||"#000";
         ctx.fillRect(j*cw,i*ch,cw,ch);
       }
+      ctx.strokeStyle="#888";
       ctx.strokeRect(j*cw,i*ch,cw,ch);
     }
   }
 }
 
+/* ===== PARSE ===== */
 function parsePalette(t){
   return t.split("\n").filter(x=>x.startsWith("COL")).map(x=>x.split(" ")[1]);
 }
@@ -30,6 +34,7 @@ function parseAgents(t){
   return t.split("\n").map(r=>r.split(";").map(Number));
 }
 
+/* ===== RULE (FIXED) ===== */
 function getN(g,x,y){
   let r=[];
   for(let dx=-1;dx<=1;dx++)
@@ -59,16 +64,20 @@ function step(g){
   return o;
 }
 
-/* EVENTS */
-document.addEventListener("click",e=>{
+/* ===== EVENTS ===== */
+document.addEventListener("click",(e)=>{
 let id=e.target.id;
 
+/* --- WIPE --- */
 if(id==="wipe"){
   params.value="";
   agentsInput.value="";
-  document.getElementById("map-4").getContext("2d").clearRect(0,0,9999,9999);
+  clear();
+  document.getElementById("read").disabled=true;
+  document.getElementById("exec").disabled=true;
 }
 
+/* --- DATA --- */
 if(id==="data"){
 params.value=`# palette
 NUMC 10
@@ -104,6 +113,7 @@ agentsInput.value =
 document.getElementById("read").disabled=false;
 }
 
+/* --- READ --- */
 if(id==="read"){
   k=parsePalette(params.value);
   agents=parseAgents(agentsInput.value);
@@ -112,20 +122,64 @@ if(id==="read"){
   document.getElementById("exec").disabled=false;
 }
 
+/* --- EXEC --- */
 if(id==="exec"){
   agents=step(old);
   draw(agents);
   old=structuredClone(agents);
 }
 
+/* --- INFO --- */
 if(id==="info"){
   alert("mockup-t4 v0.1");
-  while(!confirm("Continue?")){}
+  while(!confirm("Do you want to continue?")){}
   let n=prompt("Who are you?","Guest");
-  alert("Welcome "+n);
+  alert("Welcome, "+n);
 }
 
+/* ===== PROGRESS ===== */
+function toggle(btnId, barId, label){
+  let btn=document.getElementById(btnId);
+  let bar=document.getElementById(barId);
+
+  if(bar.value>=100) return;
+
+  if(running[btnId]){
+    clearInterval(intervals[btnId]);
+    running[btnId]=false;
+    btn.textContent=label;
+  } else {
+    running[btnId]=true;
+    btn.textContent="stop";
+
+    intervals[btnId]=setInterval(()=>{
+      bar.value++;
+
+      if(bar.value>=100){
+        bar.value=100;
+        clearInterval(intervals[btnId]);
+        running[btnId]=false;
+        btn.disabled=true;
+        btn.textContent=label;
+      }
+
+    },50);
+  }
+}
+
+if(id==="prog-1") toggle("prog-1","bar-1","scan");
+if(id==="prog-2") toggle("prog-2","bar-2","filter");
+if(id==="prog-3") toggle("prog-3","bar-3","format");
+if(id==="prog-4") toggle("prog-4","bar-4","sort");
+if(id==="prog-5") toggle("prog-5","bar-5","erase");
+
 });
+
+/* ===== CLEAR ===== */
+function clear(){
+  let c=document.getElementById("map-4");
+  c.getContext("2d").clearRect(0,0,c.width,c.height);
+}
 
 /* refs */
 const params=document.getElementById("params-input");
