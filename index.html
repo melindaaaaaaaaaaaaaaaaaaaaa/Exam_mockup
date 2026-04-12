@@ -13,7 +13,7 @@
 <div class="wrapper">
 
   <div class="panel">
-    <textarea id="params-1"></textarea>
+    <textarea></textarea>
     <div class="buttons">
       <button>wipe-1</button>
       <button>data-1</button>
@@ -47,9 +47,10 @@
 
 </div>
 
-<!-- ===== BOTTOM ===== -->
+<!-- ===== PANEL BAWAH ===== -->
 <div class="bottom-wrapper">
 
+  <!-- LEFT -->
   <div class="panel big-panel">
 
     <div class="top-area">
@@ -70,12 +71,34 @@
 
   </div>
 
+  <!-- RIGHT -->
   <div class="panel progress-panel">
-    <div class="progress-row"><button id="p1">scan</button><progress id="b1"></progress></div>
-    <div class="progress-row"><button id="p2">filter</button><progress id="b2"></progress></div>
-    <div class="progress-row"><button id="p3">format</button><progress id="b3"></progress></div>
-    <div class="progress-row"><button id="p4">sort</button><progress id="b4"></progress></div>
-    <div class="progress-row"><button id="p5">erase</button><progress id="b5"></progress></div>
+
+    <div class="progress-row">
+      <button id="prog-1">scan</button>
+      <progress id="bar-1" value="0" max="100"></progress>
+    </div>
+
+    <div class="progress-row">
+      <button id="prog-2">filter</button>
+      <progress id="bar-2" value="0" max="100"></progress>
+    </div>
+
+    <div class="progress-row">
+      <button id="prog-3">format</button>
+      <progress id="bar-3" value="0" max="100"></progress>
+    </div>
+
+    <div class="progress-row">
+      <button id="prog-4">sort</button>
+      <progress id="bar-4" value="0" max="100"></progress>
+    </div>
+
+    <div class="progress-row">
+      <button id="prog-5">erase</button>
+      <progress id="bar-5" value="0" max="100"></progress>
+    </div>
+
   </div>
 
 </div>
