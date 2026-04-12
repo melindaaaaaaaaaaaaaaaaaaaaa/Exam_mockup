@@ -1,6 +1,4 @@
-/* ========================= */
-/* ===== PANEL 1–3 (ASLI) === */
-/* ========================= */
+/* PANEL 1–3 */
 
 let h = [], w, E, D, O, y;
 let k = [], W;
@@ -62,14 +60,12 @@ function highlight(canvasId, x, y, color) {
   ctx.fillRect(x*cw, y*ch, cw, ch);
 }
 
-/* ========================= */
-/* ===== GLOBAL CLICK (ASLI) */
-/* ========================= */
+/* GLOBAL CLICK */
 
 document.addEventListener("click", (e) => {
   let id = e.target.id;
 
-  /* ===== PANEL 1 ===== */
+  /* PANEL 1 */
   if (id === "wipe-1") {
     params1.value = "";
     grid.value = "";
@@ -120,7 +116,7 @@ SEPC ;`;
     grid.value = text;
   }
 
-  /* ===== PANEL 2 ===== */
+  /* PANEL 2 */
   if (id === "wipe-2") {
     params2.value="";
     clearCanvas("map-2");
@@ -150,7 +146,7 @@ SEPC ;`;
     draw("map-2", h);
   }
 
-  /* ===== PANEL 3 ===== */
+  /* PANEL 3 */
   if (id === "wipe-3") {
     params3.value="";
     clearCanvas("map-3");
@@ -190,9 +186,7 @@ YMAX ${w}`;
 
 });
 
-/* ========================= */
-/* ===== PANEL BAWAH ===== */
-/* ========================= */
+/* PANEL BAWAH */
 
 let k2 = [], agents = [], old = [];
 let intervals = {}, running = {};
@@ -253,7 +247,7 @@ function step(g){
   return o;
 }
 
-/* ===== BUTTON BAWAH (NO GLOBAL EVENT) ===== */
+/* BUTTON BAWAH */
 
 const paramsInput = document.getElementById("params-input");
 const agentsInput = document.getElementById("agents-input");
@@ -316,10 +310,27 @@ document.getElementById("exec").onclick = () => {
 };
 
 document.getElementById("info").onclick = () => {
-  alert("mockup-t4 v0.1");
+
+// 1. alert pertama
+alert("mockup-t4 v0.1");
+
+// 2. confirm
+let lanjut = confirm("Do you want to continue?");
+if (!lanjut) return;
+
+// 3. prompt input nama
+let nama = prompt("Who are you?", "Guest");
+
+// handle kalau cancel / kosong
+if (!nama) nama = "Guest";
+
+// 4. hasil akhir
+alert("Welcome, " + nama);
+
 };
 
-/* ===== PROGRESS ===== */
+
+/* PROGRESS */
 
 function toggle(b,p,label){
   let btn=document.getElementById(b);
