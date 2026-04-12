@@ -152,7 +152,7 @@ font-size: 12px;
 /* bar */
 .progress-row progress {
 flex: 1;
-height: 6px;
+height: 12px;
 }
 
 /* disabled */
