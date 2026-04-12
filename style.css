@@ -82,7 +82,7 @@ canvas, #grid {
 .progress-panel {
   width: 260px;
   padding: 5px;
-  border: 1px solid #aaa;
+  border: 1px solid #888;
   background: #eee;
 
   display: flex;
