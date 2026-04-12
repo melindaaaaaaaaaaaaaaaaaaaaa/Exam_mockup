@@ -78,23 +78,35 @@ canvas, #grid {
   flex:1;
 }
 
-/* ===== PROGRESS ===== */
+/ PROGRESS PANEL /
 .progress-panel {
   width: 260px;
+  padding: 5px;
+  border: 1px solid #aaa;
+  background: #eee;
+
   display: flex;
   flex-direction: column;
-  padding: 8px;
-  border: 1px solid #aaa;
-  background: #f9f9f9;
+  gap: 3px; 
 }
 
+/* tiap baris */
 .progress-row {
-  display:flex;
-  gap:5px;
-  margin-bottom:5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
+/* tombol kiri */
+.progress-row button {
+  width: 55px;   
+  height: 20px;
+  font-size: 12px;
+  padding: 0;
+}
+
+/* progress bar */
 .progress-row progress {
-  flex:1;
-  height:8px;
+  flex: 1;
+  height: 6px;    
 }
