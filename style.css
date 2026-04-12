@@ -81,20 +81,22 @@ canvas, #grid {
 / PROGRESS PANEL /
 .progress-panel {
   width: 260px;
-  padding: 5px;
-  border: 1px solid #888;
+  border: 1px solid #000;
   background: #eee;
-
-  display: flex;
-  flex-direction: column;
-  gap: 3px; 
 }
 
-/* tiap baris */
 .progress-row {
   display: flex;
   align-items: center;
   gap: 5px;
+  padding: 2px 4px;
+
+  border-bottom: 1px solid #aaa;
+}
+
+/* hilangin garis terakhir */
+.progress-row:last-child {
+  border-bottom: none;
 }
 
 /* tombol kiri */
@@ -108,5 +110,5 @@ canvas, #grid {
 /* progress bar */
 .progress-row progress {
   flex: 1;
-  height: 6px;    
+  height: 8px;    
 }
