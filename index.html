@@ -1,58 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Chaining Panels Demo</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Chaining Panels Demo</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <h2>Chaining Panels Demo</h2>
 
-<!-- ===== PANEL ATAS ===== -->
 <div class="wrapper">
 
+  <!-- PANEL 1 -->
   <div class="panel">
-    <textarea></textarea>
+    <textarea id="params-1"></textarea>
     <div class="buttons">
-      <button>wipe-1</button>
-      <button>data-1</button>
-      <button disabled>read-1</button>
-      <button disabled>exec-1</button>
+      <button id="wipe-1">wipe-1</button>
+      <button id="data-1">data-1</button>
+      <button id="read-1" disabled>read-1</button>
+      <button id="exec-1" disabled>exec-1</button>
     </div>
-    <textarea></textarea>
+    <textarea id="grid"></textarea>
   </div>
 
+  <!-- PANEL 2 -->
   <div class="panel">
-    <textarea></textarea>
+    <textarea id="params-2"></textarea>
     <div class="buttons">
-      <button>wipe-2</button>
-      <button disabled>data-2</button>
-      <button disabled>read-2</button>
-      <button disabled>exec-2</button>
+      <button id="wipe-2">wipe-2</button>
+      <button id="data-2" disabled>data-2</button>
+      <button id="read-2" disabled>read-2</button>
+      <button id="exec-2" disabled>exec-2</button>
     </div>
-    <canvas></canvas>
+    <canvas id="map-2"></canvas>
   </div>
 
+  <!-- PANEL 3 -->
   <div class="panel">
-    <textarea></textarea>
+    <textarea id="params-3"></textarea>
     <div class="buttons">
-      <button>wipe-3</button>
-      <button disabled>data-3</button>
-      <button disabled>read-3</button>
-      <button disabled>exec-3</button>
+      <button id="wipe-3">wipe-3</button>
+      <button id="data-3" disabled>data-3</button>
+      <button id="read-3" disabled>read-3</button>
+      <button id="exec-3" disabled>exec-3</button>
     </div>
-    <canvas></canvas>
+    <canvas id="map-3"></canvas>
   </div>
 
 </div>
 
-<!-- ===== PANEL BAWAH ===== -->
+<!-- ===== TAMBAHAN PANEL BAWAH ===== -->
 <div class="bottom-wrapper">
 
-  <!-- LEFT -->
-  <div class="panel big-panel">
-
+  <div class="big-panel">
     <div class="top-area">
       <textarea id="params-input"></textarea>
       <textarea id="agents-input"></textarea>
@@ -68,37 +68,14 @@
     </div>
 
     <canvas id="map-4"></canvas>
-
   </div>
 
-  <!-- RIGHT -->
-  <div class="panel progress-panel">
-
-    <div class="progress-row">
-      <button id="prog-1">scan</button>
-      <progress id="bar-1" value="0" max="100"></progress>
-    </div>
-
-    <div class="progress-row">
-      <button id="prog-2">filter</button>
-      <progress id="bar-2" value="0" max="100"></progress>
-    </div>
-
-    <div class="progress-row">
-      <button id="prog-3">format</button>
-      <progress id="bar-3" value="0" max="100"></progress>
-    </div>
-
-    <div class="progress-row">
-      <button id="prog-4">sort</button>
-      <progress id="bar-4" value="0" max="100"></progress>
-    </div>
-
-    <div class="progress-row">
-      <button id="prog-5">erase</button>
-      <progress id="bar-5" value="0" max="100"></progress>
-    </div>
-
+  <div class="progress-panel">
+    <div class="progress-row"><button id="prog-1">scan</button><progress id="bar-1" value="0" max="100"></progress></div>
+    <div class="progress-row"><button id="prog-2">filter</button><progress id="bar-2" value="0" max="100"></progress></div>
+    <div class="progress-row"><button id="prog-3">format</button><progress id="bar-3" value="0" max="100"></progress></div>
+    <div class="progress-row"><button id="prog-4">sort</button><progress id="bar-4" value="0" max="100"></progress></div>
+    <div class="progress-row"><button id="prog-5">erase</button><progress id="bar-5" value="0" max="100"></progress></div>
   </div>
 
 </div>
