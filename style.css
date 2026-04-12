@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/ PANEL ATAS /
+/* ===== PANEL ATAS ===== */
 .wrapper {
   display: grid;
   grid-template-columns: 340px 340px;
@@ -10,18 +10,16 @@ body {
   gap: 20px;
 }
 
-.panel:nth-child(1) { grid-column: 1; grid-row: 1; }
-.panel:nth-child(2) { grid-column: 2; grid-row: 1; }
-.panel:nth-child(3) { grid-column: 1; grid-row: 2; }
+.panel:nth-child(1){ grid-column:1; grid-row:1; }
+.panel:nth-child(2){ grid-column:2; grid-row:1; }
+.panel:nth-child(3){ grid-column:1; grid-row:2; }
 
 .panel {
   display: flex;
-  flex-direction: row;
   width: 340px;
   height: 180px;
   border: 1px solid #ccc;
   padding: 5px;
-  box-sizing: border-box;
   overflow: hidden;
 }
 
@@ -38,7 +36,7 @@ textarea {
 }
 
 .buttons button {
-  width: 65px;   
+  width: 65px;
   font-size: 11px;
   white-space: nowrap;
 }
@@ -48,7 +46,7 @@ canvas, #grid {
   border: 1px solid #aaa;
 }
 
-/ PANEL BAWAH /
+/* ===== PANEL BAWAH ===== */
 .bottom-wrapper {
   display: flex;
   gap: 10px;
@@ -80,14 +78,16 @@ canvas, #grid {
   flex:1;
 }
 
+/* ===== PROGRESS ===== */
 .progress-panel {
   width: 260px;
   display: flex;
   flex-direction: column;
   padding: 8px;
   border: 1px solid #aaa;
-  background: #f9f9f9; 
+  background: #f9f9f9;
 }
+
 .progress-row {
   display:flex;
   gap:5px;
