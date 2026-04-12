@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* ===== PANEL ATAS (PUNYA KAMU) ===== */
+/ PANEL ATAS /
 .wrapper {
   display: grid;
   grid-template-columns: 340px 340px;
@@ -37,12 +37,18 @@ textarea {
   gap: 5px;
 }
 
+.buttons button {
+  width: 70px;   
+  font-size: 11px;
+  white-space: nowrap;
+}
+
 canvas, #grid {
   flex: 1;
   border: 1px solid #aaa;
 }
 
-/* ===== PANEL BAWAH ===== */
+/ PANEL BAWAH /
 .bottom-wrapper {
   display: flex;
   gap: 10px;
@@ -78,9 +84,10 @@ canvas, #grid {
   width: 260px;
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  padding: 8px;
+  border: 1px solid #aaa;
+  background: #f9f9f9; 
 }
-
 .progress-row {
   display:flex;
   gap:5px;
