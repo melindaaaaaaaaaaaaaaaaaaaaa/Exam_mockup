@@ -2,13 +2,17 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* === PUNYA KAMU (JANGAN DIUBAH) === */
+/* ===== PANEL ATAS (PUNYA KAMU) ===== */
 .wrapper {
   display: grid;
   grid-template-columns: 340px 340px;
   grid-template-rows: auto auto;
   gap: 20px;
 }
+
+.panel:nth-child(1) { grid-column: 1; grid-row: 1; }
+.panel:nth-child(2) { grid-column: 2; grid-row: 1; }
+.panel:nth-child(3) { grid-column: 1; grid-row: 2; }
 
 .panel {
   display: flex;
@@ -24,6 +28,7 @@ body {
 textarea {
   flex: 0 0 80px;
   font-size: 10px;
+  font-family: monospace;
 }
 
 .buttons {
@@ -37,8 +42,7 @@ canvas, #grid {
   border: 1px solid #aaa;
 }
 
-/* === TAMBAHAN BAWAH === */
-
+/* ===== PANEL BAWAH ===== */
 .bottom-wrapper {
   display: flex;
   gap: 10px;
