@@ -1,68 +1,76 @@
-let h=[], k=[];
+let k=[], agents=[], old=[];
 
-// ===== UTIL =====
-function enable(id,s){document.getElementById(id).disabled=!s;}
-function clearCanvas(id){
-  let c=document.getElementById(id);
-  c.getContext("2d").clearRect(0,0,c.width,c.height);
-}
+function draw(grid){
+  let c=document.getElementById("map-4");
+  let ctx=c.getContext("2d");
 
-// ===== DRAW =====
-function draw(id,grid){
-  let c=document.getElementById(id),ctx=c.getContext("2d");
-  c.width=c.clientWidth; c.height=c.clientHeight;
+  c.width=c.clientWidth;
+  c.height=c.clientHeight;
 
-  let r=grid.length,c2=grid[0].length;
-  let cw=c.width/c2,ch=c.height/r;
+  let h=grid.length,w=grid[0].length;
+  let cw=c.width/w,ch=c.height/h;
 
-  for(let i=0;i<r;i++){
-    for(let j=0;j<c2;j++){
+  for(let i=0;i<h;i++){
+    for(let j=0;j<w;j++){
       let v=grid[i][j];
-      if(v>0){ctx.fillStyle=k[v]||"#000";ctx.fillRect(j*cw,i*ch,cw,ch);}
-      ctx.strokeStyle="#888";ctx.strokeRect(j*cw,i*ch,cw,ch);
+      if(v>0){
+        ctx.fillStyle=k[v]||"#000";
+        ctx.fillRect(j*cw,i*ch,cw,ch);
+      }
+      ctx.strokeRect(j*cw,i*ch,cw,ch);
     }
   }
 }
 
-// ===== PARSE =====
 function parsePalette(t){
   return t.split("\n").filter(x=>x.startsWith("COL")).map(x=>x.split(" ")[1]);
 }
+
 function parseAgents(t){
   return t.split("\n").map(r=>r.split(";").map(Number));
 }
 
-// ===== AUTOMATA =====
+function getN(g,x,y){
+  let r=[];
+  for(let dx=-1;dx<=1;dx++)
+    for(let dy=-1;dy<=1;dy++)
+      if(dx||dy) r.push(g[y+dy]?.[x+dx]??0);
+  return r;
+}
+
 function step(g){
   let o=structuredClone(g);
+
   for(let i=1;i<g.length-1;i++){
     for(let j=1;j<g[0].length-1;j++){
-      let s=0;
-      for(let dx=-1;dx<=1;dx++)
-        for(let dy=-1;dy<=1;dy++)
-          if(dx||dy)s+=g[i+dy][j+dx];
-      if(s<8||s>9)o[i][j]=9;
+
+      let x=g[i][j];
+      let n=getN(g,j,i);
+
+      let sum=n.reduce((a,b)=>a+b,0);
+      let min=Math.min(...n);
+      let max=Math.max(...n);
+
+      if ((sum < 8 || sum > 9) && x === 1 && min === 0 && max < 9){
+        o[i][j] = 9;
+      }
     }
   }
   return o;
 }
 
-// ===== STATE =====
-let agents=[], old=[], intervals={}, run={};
-
-// ===== EVENTS =====
-document.addEventListener("click",(e)=>{
+/* EVENTS */
+document.addEventListener("click",e=>{
 let id=e.target.id;
 
-// --- PANEL BAWAH ---
 if(id==="wipe"){
-  paramsInput.value=""; agentsInput.value="";
-  clearCanvas("map-4");
-  enable("read",false); enable("exec",false);
+  params.value="";
+  agentsInput.value="";
+  document.getElementById("map-4").getContext("2d").clearRect(0,0,9999,9999);
 }
 
 if(id==="data"){
-paramsInput.value=`# palette
+params.value=`# palette
 NUMC 10
 COL0 #888
 COL1 #f22
@@ -75,72 +83,41 @@ COL7 #f88
 COL8 #f99
 COL9 #faa`;
 
-agentsInput.value =
-`9;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0
-9;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0
-1;9;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0
-1;9;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0
-1;1;9;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0
-1;1;1;9;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0
-1;1;1;1;9;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0
-1;1;1;1;1;9;9;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0
-1;1;1;1;1;1;1;9;9;9;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0
-1;1;1;1;1;1;1;1;1;1;9;9;9;9;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0
-1;1;1;1;1;1;1;1;1;1;1;1;1;1;9;9;9;9;0;0;0;0;0;0;0;0;0;0;0;9;9;0;0;0;0;0;0;0;9;9
-1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;9;0;0;0;0;0;0;0;0;0;0;9;9;1;1;1;0;0;0;1;1;1
-1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;9;9;9;0;0;0;0;0;0;9;1;1;1;1;1;1;1;1;1;1;1
-1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;9;9;0;0;0;0;9;1;1;1;1;1;1;1;1;1;1;1;1
-1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;9;9;9;9;9;1;1;1;1;1;1;1;1;1;1;1;1;1
-1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1`;
+agentsInput.value=`1;0;0;0;0;0;0;0;0;0
+1;1;0;0;0;0;0;0;0;0
+1;1;1;0;0;0;0;0;0;0
+1;1;1;1;0;0;0;0;0;0
+1;1;1;1;1;0;0;0;0;0
+1;1;1;1;1;1;0;0;0;0
+1;1;1;1;1;1;1;0;0;0
+1;1;1;1;1;1;1;1;0;0`;
 
-enable("read",true);
+document.getElementById("read").disabled=false;
 }
 
 if(id==="read"){
-  k=parsePalette(paramsInput.value);
+  k=parsePalette(params.value);
   agents=parseAgents(agentsInput.value);
   old=structuredClone(agents);
-  draw("map-4",agents);
-  enable("exec",true);
+  draw(agents);
+  document.getElementById("exec").disabled=false;
 }
 
 if(id==="exec"){
   agents=step(old);
-  draw("map-4",agents);
+  draw(agents);
   old=structuredClone(agents);
 }
 
 if(id==="info"){
   alert("mockup-t4 v0.1");
-  while(!confirm("Do you want to continue?")){}
+  while(!confirm("Continue?")){}
   let n=prompt("Who are you?","Guest");
-  alert("Welcome, "+n);
+  alert("Welcome "+n);
 }
-
-// --- PROGRESS ---
-function toggle(b,p){
-  let btn=document.getElementById(b),bar=document.getElementById(p);
-
-  if(run[b]){
-    clearInterval(intervals[b]); run[b]=false;
-    btn.textContent=b.replace("prog-","");
-  }else{
-    run[b]=true; btn.textContent="stop";
-    intervals[b]=setInterval(()=>{
-      bar.value++;
-      if(bar.value>=100){clearInterval(intervals[b]);btn.disabled=true;}
-    },50);
-  }
-}
-
-if(id==="prog-1")toggle("prog-1","bar-1");
-if(id==="prog-2")toggle("prog-2","bar-2");
-if(id==="prog-3")toggle("prog-3","bar-3");
-if(id==="prog-4")toggle("prog-4","bar-4");
-if(id==="prog-5")toggle("prog-5","bar-5");
 
 });
 
-// refs
-const paramsInput=document.getElementById("params-input");
+/* refs */
+const params=document.getElementById("params-input");
 const agentsInput=document.getElementById("agents-input");
